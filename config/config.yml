@@ -6,10 +6,10 @@ logger:
     - "logger_logs.log"
 rpcserver:
   host: "localhost"
-  port: 54232
+  port: 54234
 httpserver:
-  host: "192.168.31.189"
-  port: 55234
+  host: "localhost"
+  port: 55238
 database:
   implementation: "sql"
   type: "postgres"
