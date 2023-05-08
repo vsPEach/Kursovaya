@@ -1,0 +1,1 @@
+DELETE FROM events WHERE id='8ef89023-da1f-11ed-afa1-0242ac120002'
