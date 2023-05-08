@@ -67,27 +67,30 @@ func Run(config config.Config) {
 		if err := storage.Connect(ctx); err != nil {
 			logg.Error("Can't connect to database: " + err.Error())
 			cancel()
+			return
 		}
 		logg.Info("Connected to database")
 	}()
 
 	go func() {
 		defer wg.Done()
+		logg.Info("http server start")
 		if err := httpServer.Start(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			logg.Error("failed to start http server: " + err.Error())
 			cancel()
+			return
 		}
 	}()
-	logg.Info("http server start")
 
 	go func() {
 		defer wg.Done()
+		logg.Info("gRPC server start")
 		if err := internalgrpc.NewCalendarService(config.Rpc, logg, storage); err != nil {
 			logg.Error("failed to start gRPC server: " + err.Error())
 			cancel()
+			return
 		}
 	}()
-	logg.Info("gRPC server start")
 
 	wg.Wait()
 }
