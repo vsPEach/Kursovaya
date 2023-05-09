@@ -65,7 +65,7 @@ func Run(config config.Config) {
 	go func() {
 		defer wg.Done()
 		if err := storage.Connect(ctx); err != nil {
-			logg.Error("Can't connect to database: " + err.Error())
+			logg.Error("Can't ping database: " + err.Error())
 			cancel()
 			return
 		}
